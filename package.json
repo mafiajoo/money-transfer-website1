@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/netlify": "^6.2.3",
     "astro": "^5.5.2",
     "stripe": "^17.7.0"
   }
