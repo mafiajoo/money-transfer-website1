@@ -1,0 +1,46 @@
+---
+const exchangeRates = {
+  USD: { EGP: 48, EUR: 0.91, GBP: 0.78 },
+  EGP: { USD: 0.021, EUR: 0.019, GBP: 0.016 },
+  EUR: { USD: 1.10, EGP: 52, GBP: 0.86 },
+  GBP: { USD: 1.28, EGP: 61, EUR: 1.16 }
+};
+---
+
+<script>
+  function convertCurrency() {
+    const amount = parseFloat(document.getElementById("amount").value) || 0;
+    const fromCurrency = document.getElementById("fromCurrency").value;
+    const toCurrency = document.getElementById("toCurrency").value;
+    
+    const rate = exchangeRates[fromCurrency][toCurrency] || 1;
+    const convertedAmount = (amount * rate).toFixed(2);
+
+    document.getElementById("result").textContent = `Converted Amount: ${convertedAmount} ${toCurrency}`;
+  }
+</script>
+
+<div style="text-align:center; padding:20px;">
+  <h2>Currency Exchange</h2>
+  
+  <input type="number" id="amount" value="1" oninput="convertCurrency()" />
+  
+  <select id="fromCurrency" onchange="convertCurrency()">
+    <option value="USD">USD</option>
+    <option value="EGP">EGP</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+  </select>
+  
+  <span> → </span>
+  
+  <select id="toCurrency" onchange="convertCurrency()">
+    <option value="USD">USD</option>
+    <option value="EGP">EGP</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+  </select>
+
+  <h3 id="result">Converted Amount: 48.00 EGP</h3>
+</div>
+

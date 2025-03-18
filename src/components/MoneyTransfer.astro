@@ -1,0 +1,62 @@
+---
+const exchangeRates = {
+  USD: { EGP: 48, EUR: 0.91, GBP: 0.78 },
+  EGP: { USD: 0.021, EUR: 0.019, GBP: 0.016 },
+  EUR: { USD: 1.10, EGP: 52, GBP: 0.86 },
+  GBP: { USD: 1.28, EGP: 61, EUR: 1.16 }
+};
+---
+
+<script>
+  function transferMoney() {
+    const sender = document.getElementById("sender").value;
+    const receiver = document.getElementById("receiver").value;
+    const amount = parseFloat(document.getElementById("transferAmount").value) || 0;
+    const fromCurrency = document.getElementById("transferFromCurrency").value;
+    const toCurrency = document.getElementById("transferToCurrency").value;
+    
+    if (sender === receiver) {
+      alert("Sender and receiver cannot be the same.");
+      return;
+    }
+
+    const rate = exchangeRates[fromCurrency][toCurrency] || 1;
+    const convertedAmount = (amount * rate).toFixed(2);
+
+    document.getElementById("transferResult").textContent = 
+      `Transfer Successful: ${amount} ${fromCurrency} → ${convertedAmount} ${toCurrency} sent to ${receiver}`;
+  }
+</script>
+
+<div style="text-align:center; padding:20px;">
+  <h2>Money Transfer</h2>
+
+  <label>Sender Name:</label>
+  <input type="text" id="sender" placeholder="Your Name" required />
+
+  <label>Receiver Name:</label>
+  <input type="text" id="receiver" placeholder="Receiver Name" required />
+
+  <label>Amount:</label>
+  <input type="number" id="transferAmount" value="1" oninput="transferMoney()" />
+
+  <select id="transferFromCurrency" onchange="transferMoney()">
+    <option value="USD">USD</option>
+    <option value="EGP">EGP</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+  </select>
+
+  <span> → </span>
+
+  <select id="transferToCurrency" onchange="transferMoney()">
+    <option value="USD">USD</option>
+    <option value="EGP">EGP</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+  </select>
+
+  <button onclick="transferMoney()">Send Money</button>
+
+  <h3 id="transferResult"></h3>
+</div>
