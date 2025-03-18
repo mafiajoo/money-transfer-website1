@@ -1,0 +1,28 @@
+// components/CurrencyConverter.astro
+---
+const currencies = ['USD', 'EGP', 'EUR', 'GBP'];
+---
+
+<div>
+  <h2>Currency Converter</h2>
+  <input type="number" id="amount" value="1" oninput="convertCurrency()" />
+  <select id="fromCurrency" onchange="convertCurrency()">
+    {currencies.map(currency => (
+      <option value={currency}>{currency}</option>
+    ))}
+  </select>
+  <span> → </span>
+  <select id="toCurrency" onchange="convertCurrency()">
+    {currencies.map(currency => (
+      <option value={currency}>{currency}</option>
+    ))}
+  </select>
+  <h3 id="result">Converted Amount: 0</h3>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+// pages/money-transfer.astro
+import Layout from '../layouts/Layout.astro';
+
+<Layout>
+  <div style="text-align: center; padding: 20px;">
+    <h1>Money Transfer</h1>
+    <form action="/transfer" method="POST">
+      <label for="fromCurrency">From Currency:</label>
+      <select id="fromCurrency" name="fromCurrency">
+        <option value="USD">USD</option>
+        <option value="EGP">EGP</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+      </select>
+
+      <label for="toCurrency">To Currency:</label>
+      <select id="toCurrency" name="toCurrency">
+        <option value="USD">USD</option>
+        <option value="EGP">EGP</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+      </select>
+
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" name="amount" required />
+
+      <button type="submit">Send Money</button>
+    </form>
+  </div>
+</Layout>
+

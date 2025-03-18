@@ -1,19 +1,18 @@
----
-import Layout from '../layouts/Layout.astro';
-import CurrencyCalculator from "../components/CurrencyCalculator.astro";
-import CurrencyConverter from '../components/CurrencyConverter.astro';
----
-
+<!-- index.astro -->
 <Layout>
   <div style="text-align: center; padding: 20px;">
-    <h1 style="font-size: 2.5rem; color: #333;">Welcome to Money Transfer</h1>
-    <p style="font-size: 1.2rem; color: #666;">
-      Exchange your currency and transfer money easily!
-    </p>
-    <CurrencyConverter />
-    <CurrencyCalculator />
+    <h1>Welcome to Money Transfer</h1>
+    <p>Exchange your currency and transfer money easily!</p>
+    <a href="/money-transfer" style="display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none;">
+      Send Money
+    </a>
   </div>
+
+  <!-- Currency Converter -->
+  <CurrencyConverter />
 </Layout>
+
+
 
 
 

@@ -1,5 +1,6 @@
-import { defineConfig } from 'astro/config';
-
-// https://astro.build/config
-export default defineConfig({});
-
+export default {
+    srcDir: 'src', // Ensures Astro knows where your files are
+    output: 'server',
+    adapter: '@astro/netlify',
+  };
+  
