@@ -1,5 +1,5 @@
----  
-import { useState } from 'react';  
+---
+import { useState } from "react";
 
 const exchangeRates = {
   USD: { EGP: 30.5, EUR: 0.91, GBP: 0.78 },
@@ -8,36 +8,50 @@ const exchangeRates = {
   GBP: { USD: 1.28, EGP: 39.5, EUR: 1.16 }
 };
 
-const [amount, setAmount] = useState(1);
-const [fromCurrency, setFromCurrency] = useState("USD");
-const [toCurrency, setToCurrency] = useState("EGP");
-const [convertedAmount, setConvertedAmount] = useState(0);
+const CurrencyCalculator = () => {
+  const [amount, setAmount] = useState(1);
+  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [toCurrency, setToCurrency] = useState("EGP");
+  const [convertedAmount, setConvertedAmount] = useState(0);
 
-function convertCurrency() {
-  if (fromCurrency !== toCurrency) {
-    setConvertedAmount(amount * exchangeRates[fromCurrency][toCurrency]);
-  } else {
-    setConvertedAmount(amount);
+  function convertCurrency() {
+    if (fromCurrency !== toCurrency) {
+      setConvertedAmount(amount * exchangeRates[fromCurrency][toCurrency]);
+    } else {
+      setConvertedAmount(amount);
+    }
   }
-}
----
-<div style="text-align: center; padding: 20px; border: 1px solid #ccc; border-radius: 10px; width: 300px; margin: auto;">
-  <h3>Currency Exchange Calculator</h3>
-  <input type="number" bind:value={amount} min="0" />
-  <select bind:value={fromCurrency}>
-    <option value="USD">USD</option>
-    <option value="EGP">EGP</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-  </select>
-  <span> ➡️ </span>
-  <select bind:value={toCurrency}>
-    <option value="USD">USD</option>
-    <option value="EGP">EGP</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-  </select>
-  <button on:click={convertCurrency}>Convert</button>
-  <p>Converted Amount: {convertedAmount.toFixed(2)} {toCurrency}</p>
-</div>
+
+  return (
+    <div style={{
+      textAlign: "center", padding: "20px", border: "1px solid #ccc",
+      borderRadius: "10px", width: "300px", margin: "auto"
+    }}>
+      <h3>Currency Exchange Calculator</h3>
+      <input
+        type="number"
+        value={amount}
+        min="0"
+        onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
+      />
+      <select value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
+        <option value="USD">USD</option>
+        <option value="EGP">EGP</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+      </select>
+      <span> ➡️ </span>
+      <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
+        <option value="USD">USD</option>
+        <option value="EGP">EGP</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+      </select>
+      <button onClick={convertCurrency}>Convert</button>
+      <p>Converted Amount: {convertedAmount.toFixed(2)} {toCurrency}</p>
+    </div>
+  );
+};
+
+export default CurrencyCalculator;
 
