@@ -1,46 +1,41 @@
 ---
-const exchangeRates = {
-  USD: { EGP: 48, EUR: 0.91, GBP: 0.78 },
-  EGP: { USD: 0.021, EUR: 0.019, GBP: 0.016 },
-  EUR: { USD: 1.10, EGP: 52, GBP: 0.86 },
-  GBP: { USD: 1.28, EGP: 61, EUR: 1.16 }
+const balances = {
+  USD: 1000,
+  EGP: 50000,
+  EUR: 800,
+  GBP: 600
 };
 ---
 
 <script>
   function transferMoney() {
-    const sender = document.getElementById("sender").value;
-    const receiver = document.getElementById("receiver").value;
     const amount = parseFloat(document.getElementById("transferAmount").value) || 0;
     const fromCurrency = document.getElementById("transferFromCurrency").value;
     const toCurrency = document.getElementById("transferToCurrency").value;
-    
-    if (sender === receiver) {
-      alert("Sender and receiver cannot be the same.");
+
+    if (amount <= 0) {
+      document.getElementById("transferResult").textContent = "Invalid amount!";
       return;
     }
 
-    const rate = exchangeRates[fromCurrency][toCurrency] || 1;
-    const convertedAmount = (amount * rate).toFixed(2);
+    if (amount > balances[fromCurrency]) {
+      document.getElementById("transferResult").textContent = "Insufficient balance!";
+      return;
+    }
 
-    document.getElementById("transferResult").textContent = 
-      `Transfer Successful: ${amount} ${fromCurrency} → ${convertedAmount} ${toCurrency} sent to ${receiver}`;
+    balances[fromCurrency] -= amount;
+    balances[toCurrency] += amount;
+
+    document.getElementById("transferResult").textContent = `Transferred ${amount} ${fromCurrency} to ${toCurrency}.`;
   }
 </script>
 
 <div style="text-align:center; padding:20px;">
   <h2>Money Transfer</h2>
 
-  <label>Sender Name:</label>
-  <input type="text" id="sender" placeholder="Your Name" required />
+  <input type="number" id="transferAmount" placeholder="Enter amount" />
 
-  <label>Receiver Name:</label>
-  <input type="text" id="receiver" placeholder="Receiver Name" required />
-
-  <label>Amount:</label>
-  <input type="number" id="transferAmount" value="1" oninput="transferMoney()" />
-
-  <select id="transferFromCurrency" onchange="transferMoney()">
+  <select id="transferFromCurrency">
     <option value="USD">USD</option>
     <option value="EGP">EGP</option>
     <option value="EUR">EUR</option>
@@ -49,14 +44,15 @@ const exchangeRates = {
 
   <span> → </span>
 
-  <select id="transferToCurrency" onchange="transferMoney()">
+  <select id="transferToCurrency">
     <option value="USD">USD</option>
     <option value="EGP">EGP</option>
     <option value="EUR">EUR</option>
     <option value="GBP">GBP</option>
   </select>
 
-  <button onclick="transferMoney()">Send Money</button>
+  <button onclick="transferMoney()">Transfer</button>
 
   <h3 id="transferResult"></h3>
 </div>
+
